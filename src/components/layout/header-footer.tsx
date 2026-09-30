@@ -72,7 +72,7 @@ export function Header() {
       </div>
 
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="relative flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group shrink-0" aria-label="GovEx Home">
             <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground font-black text-xl shadow-xs transition-transform duration-200 group-hover:scale-105">
@@ -88,8 +88,8 @@ export function Header() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1.5" aria-label="Main navigation">
+          {/* Desktop Navigation - Centered */}
+          <nav className="hidden md:flex items-center gap-1.5 absolute left-1/2 -translate-x-1/2" aria-label="Main navigation">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
