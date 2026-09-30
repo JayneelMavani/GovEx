@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Shield, Eye, EyeOff, AlertCircle, Loader2, KeyRound } from "lucide-react";
+import { Shield, Eye, EyeOff, AlertCircle, Loader2, KeyRound, ShieldCheck, FileSearch, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -150,9 +150,9 @@ function LoginForm() {
               variant="outline"
               size="sm"
               onClick={() => fillCredentials("admin@govex.demo", "admin123")}
-              className="text-xs h-8 justify-start truncate"
+              className="text-xs h-8 justify-start truncate gap-1.5"
             >
-              <span className="w-2 h-2 rounded-full bg-blue-600 mr-1.5 shrink-0" />
+              <ShieldCheck className="w-3.5 h-3.5 text-blue-500 shrink-0" />
               <span>Admin User</span>
             </Button>
             <Button
@@ -160,9 +160,9 @@ function LoginForm() {
               variant="outline"
               size="sm"
               onClick={() => fillCredentials("researcher@govex.demo", "researcher123")}
-              className="text-xs h-8 justify-start truncate"
+              className="text-xs h-8 justify-start truncate gap-1.5"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-600 mr-1.5 shrink-0" />
+              <FileSearch className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
               <span>Researcher User</span>
             </Button>
           </div>
@@ -197,8 +197,9 @@ export default function LoginPage() {
         </Suspense>
 
         <p className="text-center text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-primary hover:underline font-medium">
-            ← Return to public evidence registry
+          <Link href="/" className="inline-flex items-center gap-1.5 hover:text-primary hover:underline font-medium">
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to public evidence registry</span>
           </Link>
         </p>
       </div>

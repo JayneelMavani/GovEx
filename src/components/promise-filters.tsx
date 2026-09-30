@@ -6,6 +6,13 @@ import { useState, useCallback } from "react";
 import { ALL_STATUSES, STATUS_CONFIG } from "@/lib/constants";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface PromiseFiltersProps {
   categories: string[];
@@ -78,56 +85,71 @@ export function PromiseFilters({
         </div>
 
         {/* Category filter */}
-        <select
-          value={currentCategory || ""}
-          onChange={(e) =>
-            updateFilters({ category: e.target.value || undefined })
-          }
-          className="h-10 px-3 rounded-lg border border-input bg-background text-foreground text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-          aria-label="Filter by category"
-        >
-          <option value="">All Categories</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat}
-            </option>
-          ))}
-        </select>
+        <div className="w-full md:w-[170px]">
+          <Select
+            value={currentCategory || "ALL"}
+            onValueChange={(val) =>
+              updateFilters({ category: val === "ALL" ? undefined : val })
+            }
+          >
+            <SelectTrigger className="h-10 text-sm">
+              <SelectValue placeholder="All Categories" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Categories</SelectItem>
+              {categories.map((cat) => (
+                <SelectItem key={cat} value={cat}>
+                  {cat}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Status filter */}
-        <select
-          value={currentStatus || ""}
-          onChange={(e) =>
-            updateFilters({ status: e.target.value || undefined })
-          }
-          className="h-10 px-3 rounded-lg border border-input bg-background text-foreground text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-          aria-label="Filter by status"
-        >
-          <option value="">All Statuses</option>
-          {ALL_STATUSES.map((status) => (
-            <option key={status} value={status}>
-              {STATUS_CONFIG[status].label}
-            </option>
-          ))}
-        </select>
+        <div className="w-full md:w-[170px]">
+          <Select
+            value={currentStatus || "ALL"}
+            onValueChange={(val) =>
+              updateFilters({ status: val === "ALL" ? undefined : val })
+            }
+          >
+            <SelectTrigger className="h-10 text-sm">
+              <SelectValue placeholder="All Statuses" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ALL">All Statuses</SelectItem>
+              {ALL_STATUSES.map((status) => (
+                <SelectItem key={status} value={status}>
+                  {STATUS_CONFIG[status].label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Party filter */}
         {parties.length > 0 && (
-          <select
-            value={currentParty || ""}
-            onChange={(e) =>
-              updateFilters({ party: e.target.value || undefined })
-            }
-            className="h-10 px-3 rounded-lg border border-input bg-background text-foreground text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-            aria-label="Filter by party"
-          >
-            <option value="">All Parties</option>
-            {parties.map((party) => (
-              <option key={party.id} value={party.id}>
-                {party.name} ({party.abbreviation})
-              </option>
-            ))}
-          </select>
+          <div className="w-full md:w-[170px]">
+            <Select
+              value={currentParty || "ALL"}
+              onValueChange={(val) =>
+                updateFilters({ party: val === "ALL" ? undefined : val })
+              }
+            >
+              <SelectTrigger className="h-10 text-sm">
+                <SelectValue placeholder="All Parties" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="ALL">All Parties</SelectItem>
+                {parties.map((party) => (
+                  <SelectItem key={party.id} value={party.id}>
+                    {party.name} ({party.abbreviation})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         )}
 
         {/* Action Buttons */}

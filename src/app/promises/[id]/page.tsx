@@ -410,17 +410,17 @@ export default async function PromisePage({
             </Card>
 
             {/* Compare CTA Card */}
-            <Card className="border-blue-200 dark:border-blue-900/60 bg-gradient-to-br from-blue-50/70 to-indigo-50/40 dark:from-blue-950/40 dark:to-indigo-950/20 shadow-xs">
+            <Card className="border-border bg-card shadow-xs">
               <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-bold text-blue-950 dark:text-blue-100">
+                <CardTitle className="text-sm font-bold text-foreground">
                   Cross-Party Category Benchmark
                 </CardTitle>
-                <CardDescription className="text-xs text-blue-800/80 dark:text-blue-300/80">
+                <CardDescription className="text-xs text-muted-foreground">
                   Compare how different political parties performed on &quot;{promise.category}&quot;.
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-2">
-                <Button asChild size="sm" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                <Button asChild size="sm" className="w-full">
                   <Link href={`/compare?category=${encodeURIComponent(promise.category)}`}>
                     <span>Compare {promise.category} Promises</span>
                     <ChevronRight className="w-4 h-4 ml-1" />

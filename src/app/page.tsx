@@ -17,6 +17,13 @@ import {
   Sparkles,
   Building2,
   Calendar,
+  Briefcase,
+  HeartPulse,
+  GraduationCap,
+  Receipt,
+  Users,
+  ShieldCheck,
+  Tag,
 } from "lucide-react";
 import { HomeSearch } from "@/components/home-search";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -71,7 +78,6 @@ export default async function HomePage() {
       subtext: "Across all parties & manifestos",
       icon: FileText,
       iconColor: "text-blue-600 dark:text-blue-400",
-      bgGradient: "from-blue-500/10 to-transparent",
       borderColor: "border-blue-200 dark:border-blue-900/50",
     },
     {
@@ -80,7 +86,6 @@ export default async function HomePage() {
       subtext: "Verified by High Tier government gazettes",
       icon: CheckCircle2,
       iconColor: "text-emerald-600 dark:text-emerald-400",
-      bgGradient: "from-emerald-500/10 to-transparent",
       borderColor: "border-emerald-200 dark:border-emerald-900/50",
     },
     {
@@ -89,7 +94,6 @@ export default async function HomePage() {
       subtext: "Active tenders, pilot projects or bills",
       icon: TrendingUp,
       iconColor: "text-amber-600 dark:text-amber-400",
-      bgGradient: "from-amber-500/10 to-transparent",
       borderColor: "border-amber-200 dark:border-amber-900/50",
     },
     {
@@ -98,26 +102,23 @@ export default async function HomePage() {
       subtext: "No budgetary or executive momentum",
       icon: AlertTriangle,
       iconColor: "text-rose-600 dark:text-rose-400",
-      bgGradient: "from-rose-500/10 to-transparent",
       borderColor: "border-rose-200 dark:border-rose-900/50",
     },
   ];
 
   const popularTopics = [
-    "Infrastructure",
-    "Employment",
-    "Healthcare",
-    "Education",
-    "Taxation",
-    "Welfare",
+    { label: "Infrastructure", icon: Building2 },
+    { label: "Employment", icon: Briefcase },
+    { label: "Healthcare", icon: HeartPulse },
+    { label: "Education", icon: GraduationCap },
+    { label: "Taxation", icon: Receipt },
+    { label: "Welfare", icon: Users },
   ];
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-slate-50/50 to-background dark:from-slate-950 dark:via-slate-900/50 dark:to-background border-b border-border pt-16 pb-20">
-        <div className="absolute inset-0 bg-grid-slate-200/50 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] dark:bg-grid-slate-800/20" />
-        
+      <section className="relative overflow-hidden bg-slate-50 dark:bg-slate-950 border-b border-border pt-16 pb-20">
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
           {/* Official badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-semibold mb-6 shadow-2xs">
@@ -130,18 +131,42 @@ export default async function HomePage() {
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-foreground mb-6 leading-[1.15]">
             Every Electoral Promise.
             <br />
-            <span className="bg-gradient-to-r from-blue-700 via-indigo-600 to-primary bg-clip-text text-transparent dark:from-blue-400 dark:to-indigo-300">
+            <span className="text-blue-600 dark:text-blue-400">
               Backed by Primary Evidence.
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
-            GovEx tracks manifesto pledges using a verifiable audit trail:{" "}
-            <span className="font-semibold text-foreground">
-              Promise → Verification → Evidence → Source → Status
-            </span>
-            . We present evidence, never political judgment.
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto mb-6 leading-relaxed font-normal">
+            GovEx tracks manifesto pledges using a verifiable audit trail. We present evidence, never political judgment.
           </p>
+
+          {/* Forensic Evidence Chain Pill Bar */}
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-4 py-2 rounded-2xl bg-card border border-border shadow-2xs mb-10 text-xs font-semibold">
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              <ScrollText className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+              <span>Promise</span>
+            </span>
+            <ArrowRight className="w-3 h-3 text-muted-foreground/60" />
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              <SearchCheck className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+              <span>Verification</span>
+            </span>
+            <ArrowRight className="w-3 h-3 text-muted-foreground/60" />
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              <FileSpreadsheet className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+              <span>Evidence</span>
+            </span>
+            <ArrowRight className="w-3 h-3 text-muted-foreground/60" />
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Source</span>
+            </span>
+            <ArrowRight className="w-3 h-3 text-muted-foreground/60" />
+            <span className="inline-flex items-center gap-1.5 text-foreground">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>Status</span>
+            </span>
+          </div>
 
           {/* Search Bar */}
           <div className="mb-6">
@@ -151,15 +176,19 @@ export default async function HomePage() {
           {/* Quick topic tags */}
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs">
             <span className="text-muted-foreground font-medium">Quick Topics:</span>
-            {popularTopics.map((topic) => (
-              <Link
-                key={topic}
-                href={`/elections/search?q=${encodeURIComponent(topic)}`}
-                className="px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 font-medium transition-colors"
-              >
-                {topic}
-              </Link>
-            ))}
+            {popularTopics.map((topic) => {
+              const Icon = topic.icon;
+              return (
+                <Link
+                  key={topic.label}
+                  href={`/elections/search?q=${encodeURIComponent(topic.label)}`}
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/80 font-medium transition-colors"
+                >
+                  <Icon className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                  <span>{topic.label}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -172,9 +201,8 @@ export default async function HomePage() {
             return (
               <Card
                 key={stat.label}
-                className={`border ${stat.borderColor} bg-card/95 backdrop-blur shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden relative`}
+                className={`border ${stat.borderColor} bg-card shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden relative`}
               >
-                <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl ${stat.bgGradient} rounded-bl-full pointer-events-none`} />
                 <CardContent className="p-5">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -307,17 +335,20 @@ export default async function HomePage() {
                               </p>
                               {/* Quick summary chips */}
                               <div className="flex flex-wrap items-center gap-2 mt-2">
-                                <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
-                                  {manifesto.promises.length} Pledges
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-muted text-muted-foreground">
+                                  <FileText className="w-3 h-3 text-muted-foreground" />
+                                  <span>{manifesto.promises.length} Pledges</span>
                                 </span>
                                 {implementedCount > 0 && (
-                                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
-                                    {implementedCount} Implemented
+                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400">
+                                    <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
+                                    <span>{implementedCount} Implemented</span>
                                   </span>
                                 )}
                                 {inProgressCount > 0 && (
-                                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400">
-                                    {inProgressCount} In Progress
+                                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-400">
+                                    <TrendingUp className="w-3 h-3 text-amber-600 dark:text-amber-400" />
+                                    <span>{inProgressCount} In Progress</span>
                                   </span>
                                 )}
                               </div>
@@ -352,12 +383,14 @@ export default async function HomePage() {
                                       {promise.title}
                                     </p>
                                     <div className="flex items-center gap-2 mt-1">
-                                      <span className="text-[11px] font-medium text-muted-foreground">
-                                        {promise.category}
+                                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+                                        <Tag className="w-3 h-3 text-muted-foreground/70" />
+                                        <span>{promise.category}</span>
                                       </span>
                                       <span className="text-muted-foreground/40">•</span>
-                                      <span className="text-[11px] text-muted-foreground">
-                                        {promise._count.evidences} evidence document{promise._count.evidences !== 1 ? "s" : ""}
+                                      <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+                                        <FileText className="w-3 h-3 text-muted-foreground/70" />
+                                        <span>{promise._count.evidences} evidence document{promise._count.evidences !== 1 ? "s" : ""}</span>
                                       </span>
                                     </div>
                                   </div>

@@ -14,6 +14,14 @@ import {
   FileSearch,
   Settings,
   ChevronDown,
+  AlertCircle,
+  AlertTriangle,
+  ScrollText,
+  SearchCheck,
+  FileCheck,
+  ShieldCheck,
+  CheckCircle2,
+  CheckCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -43,7 +51,8 @@ export function Header() {
       {/* Top Disclaimer Banner */}
       <div className="bg-slate-900 text-slate-100 dark:bg-slate-950 dark:text-slate-200 py-1.5 px-4 text-center text-xs tracking-wide">
         <div className="mx-auto max-w-7xl flex items-center justify-center gap-2">
-          <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            <AlertCircle className="w-3 h-3 text-amber-400" />
             OFFICIAL DISCLAIMER
           </span>
           <span className="font-medium text-slate-300">
@@ -52,11 +61,21 @@ export function Header() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Transparent Blur Gradient Divider - Reduced by 25% */}
+      <div className="relative w-full h-[1px] overflow-visible opacity-75">
+        {/* Ambient diffuse glow */}
+        <div className="absolute inset-x-0 -top-1 h-2.5 bg-gradient-to-r from-transparent via-blue-500/25 dark:via-blue-400/30 to-transparent blur-sm pointer-events-none" />
+        {/* Soft focused glow */}
+        <div className="absolute inset-x-0 -top-0.5 h-1.5 bg-gradient-to-r from-transparent via-blue-400/45 dark:via-blue-300/45 to-transparent blur-xs pointer-events-none" />
+        {/* Crisp gradient separator line */}
+        <div className="relative h-[1px] w-full bg-gradient-to-r from-transparent via-blue-500/70 dark:via-blue-400/70 to-transparent" />
+      </div>
+
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group" aria-label="GovEx Home">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-blue-700 text-primary-foreground font-black text-xl shadow-sm transition-transform duration-200 group-hover:scale-105">
+          <Link href="/" className="flex items-center gap-3 group shrink-0" aria-label="GovEx Home">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-primary-foreground font-black text-xl shadow-xs transition-transform duration-200 group-hover:scale-105">
               G
             </div>
             <div className="flex flex-col">
@@ -120,7 +139,7 @@ export function Header() {
           </nav>
 
           {/* Right side authentication & actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             {session?.user ? (
               <div className="hidden md:flex items-center gap-3">
                 <DropdownMenu>
@@ -174,10 +193,9 @@ export function Header() {
                 </DropdownMenu>
               </div>
             ) : (
-              <Button asChild variant="outline" size="sm" className="hidden md:inline-flex gap-2">
+              <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
                 <Link href="/login">
-                  <Shield className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                  <span>Researcher Login</span>
+                  Login
                 </Link>
               </Button>
             )}
@@ -269,10 +287,9 @@ export function Header() {
                 </Button>
               </div>
             ) : (
-              <Button asChild variant="default" size="sm" className="w-full justify-center gap-2">
+              <Button asChild variant="default" size="sm" className="w-full justify-center">
                 <Link href="/login" onClick={() => setMobileOpen(false)}>
-                  <Shield className="w-4 h-4" />
-                  Researcher / Admin Login
+                  Login
                 </Link>
               </Button>
             )}
@@ -289,8 +306,9 @@ export function Footer() {
       {/* Top Footer Banner */}
       <div className="border-b border-slate-800 bg-slate-950/70 py-4 px-4 text-center">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm">
-          <Badge variant="outline" className="text-amber-400 border-amber-400/40 bg-amber-400/10 text-xs px-2 py-0.5">
-            MANDATORY NOTICE
+          <Badge variant="outline" className="text-amber-400 border-amber-400/40 bg-amber-400/10 text-xs px-2 py-0.5 inline-flex items-center gap-1.5">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+            <span>MANDATORY NOTICE</span>
           </Badge>
           <span className="font-medium text-slate-300">
             GovEx presents evidence, not political judgement.
@@ -298,7 +316,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand Column */}
           <div className="space-y-4 md:col-span-1">
@@ -316,25 +334,25 @@ export function Footer() {
           {/* Chain Model */}
           <div className="space-y-3 md:col-span-1">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">Evidence Chain Model</h4>
-            <div className="text-xs text-slate-400 space-y-1.5">
+            <div className="text-xs text-slate-400 space-y-2">
               <div className="flex items-center gap-2 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <ScrollText className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                 <span>Promise (Verbatim manifesto text)</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-                <span>Verification (Methodological assessment)</span>
+                <SearchCheck className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                <span>Verification (Methodology)</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <FileCheck className="w-3.5 h-3.5 text-purple-400 shrink-0" />
                 <span>Evidence (Documentary artifacts)</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <ShieldCheck className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span>Source (High, Med, Supporting Tier)</span>
               </div>
               <div className="flex items-center gap-2 text-slate-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <span>Implementation Status</span>
               </div>
             </div>
@@ -345,18 +363,21 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">Platform Navigation</h4>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/" className="text-slate-400 hover:text-white transition-colors">
-                  Home Overview
+                <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                  <Home className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Home Overview</span>
                 </Link>
               </li>
               <li>
-                <Link href="/compare" className="text-slate-400 hover:text-white transition-colors">
-                  Party Comparison Matrix
+                <Link href="/compare" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                  <Scale className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Party Comparison Matrix</span>
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="text-slate-400 hover:text-white transition-colors">
-                  Researcher / Admin Portal
+                <Link href="/login" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors">
+                  <Shield className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Researcher / Admin Portal</span>
                 </Link>
               </li>
             </ul>
@@ -364,7 +385,10 @@ export function Footer() {
 
           {/* Standards & Rigor */}
           <div className="space-y-3 md:col-span-1">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">Verification Rigor</h4>
+            <div className="flex items-center gap-1.5">
+              <CheckCheck className="w-4 h-4 text-emerald-400" />
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300">Verification Rigor</h4>
+            </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Promises marked <span className="text-emerald-400 font-semibold">Implemented</span> or <span className="text-amber-400 font-semibold">Partially Implemented</span> strictly require verified <span className="text-white font-semibold">High Tier</span> primary government sources.
             </p>

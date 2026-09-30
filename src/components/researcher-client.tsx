@@ -18,6 +18,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Table,
   TableHeader,
   TableBody,
@@ -79,10 +86,10 @@ export function ResearcherClient({
   parties,
 }: ResearcherClientProps) {
   const [search, setSearch] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [partyFilter, setPartyFilter] = useState("");
-  const [tierFilter, setTierFilter] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("ALL");
+  const [statusFilter, setStatusFilter] = useState("ALL");
+  const [partyFilter, setPartyFilter] = useState("ALL");
+  const [tierFilter, setTierFilter] = useState("ALL");
 
   const filtered = useMemo(() => {
     return promises.filter((p) => {
@@ -93,10 +100,10 @@ export function ResearcherClient({
       ) {
         return false;
       }
-      if (categoryFilter && p.category !== categoryFilter) return false;
-      if (statusFilter && p.status !== statusFilter) return false;
-      if (partyFilter && p.partyAbbreviation !== partyFilter) return false;
-      if (tierFilter) {
+      if (categoryFilter && categoryFilter !== "ALL" && p.category !== categoryFilter) return false;
+      if (statusFilter && statusFilter !== "ALL" && p.status !== statusFilter) return false;
+      if (partyFilter && partyFilter !== "ALL" && p.partyAbbreviation !== partyFilter) return false;
+      if (tierFilter && tierFilter !== "ALL") {
         const hasRequiredTier = p.evidences.some(
           (e) => e.sourceTier === tierFilter
         );
@@ -108,14 +115,18 @@ export function ResearcherClient({
 
   const clearFilters = () => {
     setSearch("");
-    setCategoryFilter("");
-    setStatusFilter("");
-    setPartyFilter("");
-    setTierFilter("");
+    setCategoryFilter("ALL");
+    setStatusFilter("ALL");
+    setPartyFilter("ALL");
+    setTierFilter("ALL");
   };
 
   const hasFilters = Boolean(
-    search || categoryFilter || statusFilter || partyFilter || tierFilter
+    search ||
+    categoryFilter !== "ALL" ||
+    statusFilter !== "ALL" ||
+    partyFilter !== "ALL" ||
+    tierFilter !== "ALL"
   );
 
   const exportCSV = () => {
@@ -201,10 +212,10 @@ export function ResearcherClient({
   return (
     <div className="space-y-6">
       {/* Search & Filter Toolbar */}
-      <Card className="border-border shadow-sm">
+      <Card className="border-border shadow-xs bg-card">
         <CardContent className="p-4 sm:p-5">
           <div className="flex flex-wrap items-center gap-3">
-            <div className="relative flex-1 min-w-[220px]">
+            <div className="relative flex-[2] min-w-[240px]">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
               <Input
                 type="search"
@@ -215,62 +226,74 @@ export function ResearcherClient({
               />
             </div>
 
-            <select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              className="h-10 px-3 rounded-lg border border-input bg-background text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="">All Categories</option>
-              {categories.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
-              ))}
-            </select>
+            <div className="flex-1 min-w-[150px]">
+              <Select value={categoryFilter} onValueChange={setCategoryFilter}>
+                <SelectTrigger className="h-10 text-sm">
+                  <SelectValue placeholder="All Categories" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">All Categories</SelectItem>
+                  {categories.map((c) => (
+                    <SelectItem key={c} value={c}>
+                      {c}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="h-10 px-3 rounded-lg border border-input bg-background text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="">All Statuses</option>
-              {ALL_STATUSES.map((s) => (
-                <option key={s} value={s}>
-                  {STATUS_CONFIG[s].label}
-                </option>
-              ))}
-            </select>
+            <div className="flex-1 min-w-[150px]">
+              <Select value={statusFilter} onValueChange={setStatusFilter}>
+                <SelectTrigger className="h-10 text-sm">
+                  <SelectValue placeholder="All Statuses" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">All Statuses</SelectItem>
+                  {ALL_STATUSES.map((s) => (
+                    <SelectItem key={s} value={s}>
+                      {STATUS_CONFIG[s].label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-            <select
-              value={partyFilter}
-              onChange={(e) => setPartyFilter(e.target.value)}
-              className="h-10 px-3 rounded-lg border border-input bg-background text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="">All Parties</option>
-              {parties.map((p) => (
-                <option key={p.id} value={p.abbreviation}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
+            <div className="flex-1 min-w-[150px]">
+              <Select value={partyFilter} onValueChange={setPartyFilter}>
+                <SelectTrigger className="h-10 text-sm">
+                  <SelectValue placeholder="All Parties" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">All Parties</SelectItem>
+                  {parties.map((p) => (
+                    <SelectItem key={p.id} value={p.abbreviation}>
+                      {p.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
 
-            <select
-              value={tierFilter}
-              onChange={(e) => setTierFilter(e.target.value)}
-              className="h-10 px-3 rounded-lg border border-input bg-background text-xs sm:text-sm font-medium focus:outline-none focus:ring-2 focus:ring-ring"
-            >
-              <option value="">Any Quality Tier</option>
-              <option value="HIGH">Requires HIGH Tier</option>
-              <option value="MEDIUM">Requires MEDIUM Tier</option>
-              <option value="SUPPORTING">Requires SUPPORTING Tier</option>
-            </select>
+            <div className="flex-1 min-w-[150px]">
+              <Select value={tierFilter} onValueChange={setTierFilter}>
+                <SelectTrigger className="h-10 text-sm">
+                  <SelectValue placeholder="Any Quality Tier" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">Any Quality Tier</SelectItem>
+                  <SelectItem value="HIGH">Requires HIGH Tier</SelectItem>
+                  <SelectItem value="MEDIUM">Requires MEDIUM Tier</SelectItem>
+                  <SelectItem value="SUPPORTING">Requires SUPPORTING Tier</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
             {hasFilters && (
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={clearFilters}
-                className="h-10 px-3 text-muted-foreground hover:text-foreground gap-1.5"
+                className="h-10 px-3 text-muted-foreground hover:text-foreground gap-1.5 shrink-0"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reset</span>
